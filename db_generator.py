@@ -22,8 +22,8 @@ class KeyboardLayoutsGenerator(DbGenerator):
 
     def key_rows_to_db(self, modifier_1=0, modifier_2=0):
         """
-        :param modifier_1: lshift - 41, rshift - 53
-        :param modifier_2:
+        :param modifier_1: l_shift - 41, r_shift - 53, l_alt - 56, r_alt - 58
+        :param modifier_2: same as above
         :return:
         """
         key_rows = self.kl.key_to_unicode(modifier_1=modifier_1, modifier_2=modifier_2)
