@@ -16,7 +16,10 @@ class KeyboardLayoutsGenerator(DbGenerator):
         texts = ''
         for modifier_1 in [0, [41, 53]]:
             for modifier_2 in [0, [56, 58]]:
-                texts += self.key_rows_to_db(modifier_1=modifier_1, modifier_2=modifier_2) + '\n'
+                texts += (
+                    self.key_rows_to_db(modifier_1=modifier_1, modifier_2=modifier_2)
+                    + '\n'
+                )
         print(texts)
         return texts
 
@@ -42,12 +45,14 @@ class KeyboardLayoutsGenerator(DbGenerator):
     def key_rows_to_db(self, modifier_1=0, modifier_2=0):
         """
         :param modifier_1: int for single, list for splitting into more left or right
-        :param modifier_2:
+        :param modifier_2: same as above
         :return:
         """
         cur_modifier_1 = self.get_int_or_first(modifier_1)
         cur_modifier_2 = self.get_int_or_first(modifier_2)
-        key_rows = self.kl.keys_to_unicode(modifier_1=cur_modifier_1, modifier_2=cur_modifier_2)
+        key_rows = self.kl.keys_to_unicode(
+            modifier_1=cur_modifier_1, modifier_2=cur_modifier_2
+        )
         db_rows = []
         for i, key_row in enumerate(key_rows):
             cur_modifier_1 = self.select_based_on_side(modifier_1, i, len(key_rows))
