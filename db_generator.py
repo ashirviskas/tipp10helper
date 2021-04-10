@@ -15,7 +15,7 @@ class KeyboardLayoutsGenerator(DbGenerator):
     def generate_all_layout(self):
         texts = ''
         for modifier_1 in [0, [41, 53]]:
-            for modifier_2 in [0, [56, 58]]:
+            for modifier_2 in [0, 58]:
                 texts += (
                     self.key_rows_to_db(modifier_1=modifier_1, modifier_2=modifier_2)
                     + '\n'
@@ -42,6 +42,18 @@ class KeyboardLayoutsGenerator(DbGenerator):
         else:
             return modifier[0]
 
+    @staticmethod
+    def single_modifier_to_first(modifier_1, modifier_2):
+        """
+        If only one modifier exists, make it first one
+        :param modifier_1:
+        :param modifier_2:
+        :return:
+        """
+        if not modifier_1:
+            return modifier_2, 0
+        return modifier_1, modifier_2
+
     def key_rows_to_db(self, modifier_1=0, modifier_2=0):
         """
         :param modifier_1: int for single, list for splitting into more left or right
@@ -57,6 +69,9 @@ class KeyboardLayoutsGenerator(DbGenerator):
         for i, key_row in enumerate(key_rows):
             cur_modifier_1 = self.select_based_on_side(modifier_1, i, len(key_rows))
             cur_modifier_2 = self.select_based_on_side(modifier_2, i, len(key_rows))
+            cur_modifier_1, cur_modifier_2 = self.single_modifier_to_first(
+                cur_modifier_1, cur_modifier_2
+            )
             db_str = f'INSERT INTO keyboard_layouts VALUES({self.primary_start + i},{key_row[1]},{key_row[0]},{cur_modifier_1},{cur_modifier_2},\'{self.layout}\');'
             db_rows.append(db_str)
         self.primary_start += len(key_rows) + 1
