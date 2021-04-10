@@ -8,7 +8,7 @@ class KeyboardLayout:
                             29,
                             43]
 
-    def key_to_unicode(self, modifier_1=0, modifier_2=0, use_rows=[0, 1, 2, 3]):
+    def keys_to_unicode(self, modifier_1=0, modifier_2=0, use_rows=[0, 1, 2, 3]):
         """
 
         :param modifier_1:

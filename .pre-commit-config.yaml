@@ -1,0 +1,23 @@
+repos:
+-   repo: https://github.com/ambv/black
+    rev: 20.8b1 # Replace by any tag/version: https://github.com/psf/black/tags
+    hooks:
+    - id: black
+      language_version: python3.9
+      args: [--skip-string-normalization]
+-   repo: https://gitlab.com/pycqa/flake8
+    rev: 3.9.0
+    hooks:
+    - id: flake8
+-    repo: local
+     hooks:
+     -   id: pytest
+         name: pytest
+         entry: pytest
+         language: system
+         pass_filenames: false
+         # alternatively you could `types: [python]` so it only runs when python files change
+         # though tests might be invalidated if you were to say change a data file
+         always_run: true
+         verbose: true
+         # For slow tests, run `pytest --runslow'
