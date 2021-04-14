@@ -4,6 +4,14 @@ from keyboard_layout import KeyboardLayout
 class DbGenerator:
     def __init__(self, primary_start=1000, **kwargs):
         self.primary_start = primary_start
+        self.solution = None
+
+    def do_solution(self, **kwargs):
+        pass
+
+    def write_solution(self, filepath, **kwargs):
+        with open(filepath, 'w') as f:
+            f.write(self.solution)
 
 
 class KeyboardLayoutsGenerator(DbGenerator):
@@ -12,7 +20,10 @@ class KeyboardLayoutsGenerator(DbGenerator):
         self.layout = layout
         self.kl = KeyboardLayout()
 
-    def generate_full_layout(self):
+    def write_solution(self, filepath, **kwargs):
+        super().write_solution(filepath=filepath, **kwargs)
+
+    def do_solution(self):
         texts = ''
         for modifier_1 in [0, [41, 53]]:
             for modifier_2 in [0, 58]:
@@ -22,7 +33,7 @@ class KeyboardLayoutsGenerator(DbGenerator):
                     )
                     + '\n'
                 )
-        print(texts)
+        self.solution = texts
         return texts
 
     @staticmethod
@@ -84,3 +95,13 @@ class KeyboardLayoutsGenerator(DbGenerator):
                 self.primary_start += 1
         txt = '\n'.join(db_rows)
         return txt
+
+
+class SentenceGenerator(DbGenerator):
+    def __init__(self, datafiles=None, **kwargs):
+        super().__init__(**kwargs)
+        self.datafiles = datafiles
+
+    def do_solution(self):
+        result_lines = []
+        return result_lines

@@ -1,9 +1,9 @@
-from db_generator import KeyboardLayoutsGenerator
+from core.db_generator import KeyboardLayoutsGenerator
 
 
 def main():
     klg = KeyboardLayoutsGenerator(primary_start=13000)
-    klg.generate_full_layout()
+    klg.do_solution()
 
 
 if __name__ == '__main__':
